@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Stroitelniu_ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="avtorization">
+    <Key>
+      <PropertyRef Name="ID_polyzovatelia" />
+    </Key>
+    <Property Name="ID_polyzovatelia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="paron" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="sotrudniki" Relationship="Self.FK_sotrudniki_avtorization" FromRole="avtorization" ToRole="sotrudniki" />
+  </EntityType>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="ID_clienta" />
+    </Key>
+    <Property Name="ID_clienta" Type="Int32" Nullable="false" />
+    <Property Name="familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nomer_phone" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="zakaz" Relationship="Self.FK_zakaz_client" FromRole="client" ToRole="zakaz" />
+  </EntityType>
+  <EntityType Name="dop_yslyga">
+    <Key>
+      <PropertyRef Name="ID_yslygi" />
+    </Key>
+    <Property Name="ID_yslygi" Type="Int32" Nullable="false" />
+    <Property Name="yslyga" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="chena" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="zakaz" Relationship="Self.zakaz_yslyga" FromRole="dop_yslyga" ToRole="zakaz" />
+  </EntityType>
+  <EntityType Name="itap_stroitelistva">
+    <Key>
+      <PropertyRef Name="ID_itap" />
+    </Key>
+    <Property Name="ID_itap" Type="Int32" Nullable="false" />
+    <Property Name="opisanie_itapa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="itap_objekt" Relationship="Self.FK_itap_objekt_itap_stroitelistva" FromRole="itap_stroitelistva" ToRole="itap_objekt" />
+  </EntityType>
+  <EntityType Name="itap_objekt">
+    <Key>
+      <PropertyRef Name="ID_itap" />
+      <PropertyRef Name="ID_objekta" />
+    </Key>
+    <Property Name="ID_itap" Type="Int32" Nullable="false" />
+    <Property Name="ID_objekta" Type="Int32" Nullable="false" />
+    <Property Name="data_nachala" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="data_koncha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="itogovai_data" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="itap_stroitelistva" Relationship="Self.FK_itap_objekt_itap_stroitelistva" FromRole="itap_objekt" ToRole="itap_stroitelistva" />
+    <NavigationProperty Name="objekt" Relationship="Self.FK_itap_objekt_objekt" FromRole="itap_objekt" ToRole="objekt" />
+  </EntityType>
+  <EntityType Name="material">
+    <Key>
+      <PropertyRef Name="ID_material" />
+    </Key>
+    <Property Name="ID_material" Type="Int32" Nullable="false" />
+    <Property Name="nazvanie_materiala" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kolichestvo_materiala" Type="Double" />
+    <Property Name="chena" Type="Int32" />
+    <NavigationProperty Name="postavki_materiala" Relationship="Self.FK_postavki_materiala_material" FromRole="material" ToRole="postavki_materiala" />
+  </EntityType>
+  <EntityType Name="objekt">
+    <Key>
+      <PropertyRef Name="ID_objekta" />
+    </Key>
+    <Property Name="ID_objekta" Type="Int32" Nullable="false" />
+    <Property Name="address_objekta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ploshad_objekta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dlina" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="shirina" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="visota" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kol_itzhei" Type="Int32" />
+    <NavigationProperty Name="itap_objekt" Relationship="Self.FK_itap_objekt_objekt" FromRole="objekt" ToRole="itap_objekt" />
+    <NavigationProperty Name="postavki_materiala" Relationship="Self.FK_postavki_materiala_objekt" FromRole="objekt" ToRole="postavki_materiala" />
+    <NavigationProperty Name="zakaz" Relationship="Self.FK_zakaz_objekt" FromRole="objekt" ToRole="zakaz" />
+  </EntityType>
+  <EntityType Name="postavki_materiala">
+    <Key>
+      <PropertyRef Name="ID_postavki_materiala" />
+    </Key>
+    <Property Name="ID_postavki_materiala" Type="Int32" Nullable="false" />
+    <Property Name="ID_material" Type="Int32" Nullable="false" />
+    <Property Name="data_dostavki" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="kolichestvo_materiala" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_objekta" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="material" Relationship="Self.FK_postavki_materiala_material" FromRole="postavki_materiala" ToRole="material" />
+    <NavigationProperty Name="objekt" Relationship="Self.FK_postavki_materiala_objekt" FromRole="postavki_materiala" ToRole="objekt" />
+  </EntityType>
+  <EntityType Name="sotrudniki">
+    <Key>
+      <PropertyRef Name="ID_sotrudnika" />
+    </Key>
+    <Property Name="ID_sotrudnika" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="imya" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="doljnost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nomer_passporta" Type="String" MaxLength="4" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="seria_passporta" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="data_priema_na_raboty" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ID_polyzovatelia" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="avtorization" Relationship="Self.FK_sotrudniki_avtorization" FromRole="sotrudniki" ToRole="avtorization" />
+    <NavigationProperty Name="zakaz" Relationship="Self.FK_zakaz_sotrudniki" FromRole="sotrudniki" ToRole="zakaz" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="zakaz">
+    <Key>
+      <PropertyRef Name="ID_zakaza" />
+    </Key>
+    <Property Name="ID_zakaza" Type="Int32" Nullable="false" />
+    <Property Name="data_zakaza" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="status_zakaza" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ID_clienta" Type="Int32" Nullable="false" />
+    <Property Name="ID_objekta" Type="Int32" Nullable="false" />
+    <Property Name="ID_sotrudnika" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="client" Relationship="Self.FK_zakaz_client" FromRole="zakaz" ToRole="client" />
+    <NavigationProperty Name="objekt" Relationship="Self.FK_zakaz_objekt" FromRole="zakaz" ToRole="objekt" />
+    <NavigationProperty Name="sotrudniki" Relationship="Self.FK_zakaz_sotrudniki" FromRole="zakaz" ToRole="sotrudniki" />
+    <NavigationProperty Name="dop_yslyga" Relationship="Self.zakaz_yslyga" FromRole="zakaz" ToRole="dop_yslyga" />
+  </EntityType>
+  <Association Name="FK_sotrudniki_avtorization">
+    <End Role="avtorization" Type="Self.avtorization" Multiplicity="1" />
+    <End Role="sotrudniki" Type="Self.sotrudniki" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="avtorization">
+        <PropertyRef Name="ID_polyzovatelia" />
+      </Principal>
+      <Dependent Role="sotrudniki">
+        <PropertyRef Name="ID_polyzovatelia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_zakaz_client">
+    <End Role="client" Type="Self.client" Multiplicity="1" />
+    <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="ID_clienta" />
+      </Principal>
+      <Dependent Role="zakaz">
+        <PropertyRef Name="ID_clienta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itap_objekt_itap_stroitelistva">
+    <End Role="itap_stroitelistva" Type="Self.itap_stroitelistva" Multiplicity="1" />
+    <End Role="itap_objekt" Type="Self.itap_objekt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="itap_stroitelistva">
+        <PropertyRef Name="ID_itap" />
+      </Principal>
+      <Dependent Role="itap_objekt">
+        <PropertyRef Name="ID_itap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_itap_objekt_objekt">
+    <End Role="objekt" Type="Self.objekt" Multiplicity="1" />
+    <End Role="itap_objekt" Type="Self.itap_objekt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objekt">
+        <PropertyRef Name="ID_objekta" />
+      </Principal>
+      <Dependent Role="itap_objekt">
+        <PropertyRef Name="ID_objekta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_postavki_materiala_material">
+    <End Role="material" Type="Self.material" Multiplicity="1" />
+    <End Role="postavki_materiala" Type="Self.postavki_materiala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="material">
+        <PropertyRef Name="ID_material" />
+      </Principal>
+      <Dependent Role="postavki_materiala">
+        <PropertyRef Name="ID_material" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_postavki_materiala_objekt">
+    <End Role="objekt" Type="Self.objekt" Multiplicity="1" />
+    <End Role="postavki_materiala" Type="Self.postavki_materiala" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objekt">
+        <PropertyRef Name="ID_objekta" />
+      </Principal>
+      <Dependent Role="postavki_materiala">
+        <PropertyRef Name="ID_objekta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_zakaz_objekt">
+    <End Role="objekt" Type="Self.objekt" Multiplicity="1" />
+    <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="objekt">
+        <PropertyRef Name="ID_objekta" />
+      </Principal>
+      <Dependent Role="zakaz">
+        <PropertyRef Name="ID_objekta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_zakaz_sotrudniki">
+    <End Role="sotrudniki" Type="Self.sotrudniki" Multiplicity="1" />
+    <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sotrudniki">
+        <PropertyRef Name="ID_sotrudnika" />
+      </Principal>
+      <Dependent Role="zakaz">
+        <PropertyRef Name="ID_sotrudnika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="zakaz_yslyga">
+    <End Role="dop_yslyga" Type="Self.dop_yslyga" Multiplicity="*" />
+    <End Role="zakaz" Type="Self.zakaz" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="Stroitelniu_ShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="avtorization" EntityType="Self.avtorization" />
+    <EntitySet Name="client" EntityType="Self.client" />
+    <EntitySet Name="dop_yslyga" EntityType="Self.dop_yslyga" />
+    <EntitySet Name="itap_stroitelistva" EntityType="Self.itap_stroitelistva" />
+    <EntitySet Name="itap_objekt" EntityType="Self.itap_objekt" />
+    <EntitySet Name="material" EntityType="Self.material" />
+    <EntitySet Name="objekt" EntityType="Self.objekt" />
+    <EntitySet Name="postavki_materiala" EntityType="Self.postavki_materiala" />
+    <EntitySet Name="sotrudniki" EntityType="Self.sotrudniki" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="zakaz" EntityType="Self.zakaz" />
+    <AssociationSet Name="FK_sotrudniki_avtorization" Association="Self.FK_sotrudniki_avtorization">
+      <End Role="avtorization" EntitySet="avtorization" />
+      <End Role="sotrudniki" EntitySet="sotrudniki" />
+    </AssociationSet>
+    <AssociationSet Name="FK_zakaz_client" Association="Self.FK_zakaz_client">
+      <End Role="client" EntitySet="client" />
+      <End Role="zakaz" EntitySet="zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itap_objekt_itap_stroitelistva" Association="Self.FK_itap_objekt_itap_stroitelistva">
+      <End Role="itap_stroitelistva" EntitySet="itap_stroitelistva" />
+      <End Role="itap_objekt" EntitySet="itap_objekt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_itap_objekt_objekt" Association="Self.FK_itap_objekt_objekt">
+      <End Role="objekt" EntitySet="objekt" />
+      <End Role="itap_objekt" EntitySet="itap_objekt" />
+    </AssociationSet>
+    <AssociationSet Name="FK_postavki_materiala_material" Association="Self.FK_postavki_materiala_material">
+      <End Role="material" EntitySet="material" />
+      <End Role="postavki_materiala" EntitySet="postavki_materiala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_postavki_materiala_objekt" Association="Self.FK_postavki_materiala_objekt">
+      <End Role="objekt" EntitySet="objekt" />
+      <End Role="postavki_materiala" EntitySet="postavki_materiala" />
+    </AssociationSet>
+    <AssociationSet Name="FK_zakaz_objekt" Association="Self.FK_zakaz_objekt">
+      <End Role="objekt" EntitySet="objekt" />
+      <End Role="zakaz" EntitySet="zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_zakaz_sotrudniki" Association="Self.FK_zakaz_sotrudniki">
+      <End Role="sotrudniki" EntitySet="sotrudniki" />
+      <End Role="zakaz" EntitySet="zakaz" />
+    </AssociationSet>
+    <AssociationSet Name="zakaz_yslyga" Association="Self.zakaz_yslyga">
+      <End Role="dop_yslyga" EntitySet="dop_yslyga" />
+      <End Role="zakaz" EntitySet="zakaz" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

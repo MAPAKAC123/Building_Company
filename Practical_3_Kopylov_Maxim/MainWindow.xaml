@@ -1,0 +1,28 @@
+﻿<Window x:Class="Practical_3_Kopylov_Maxim.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Practical_3_Kopylov_Maxim"
+        mc:Ignorable="d"
+        Title="Stroitelinay_Shop" Height="550" Width="800" Icon="/Resources/icon.ico" MinWidth="800" MinHeight="550">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="112*"/>
+            <ColumnDefinition Width="651*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#8B4513" Grid.ColumnSpan="3">
+            <Image Width="70" Height="70" HorizontalAlignment="Left" Margin="5" Source="/Resources/Logo.jpg"/>
+            <Button x:Name="btnBack" HorizontalAlignment="Right" Content="Назад" Click="btnBack_Click"/>
+        </Grid>
+        <Frame x:Name="FrmMain" Grid.Row="1" NavigationUIVisibility="Hidden" ContentRendered="FrmMain_ContentRendered" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+    </Grid>
+</Window>

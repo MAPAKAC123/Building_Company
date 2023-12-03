@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище Stroitelniu_ShopModelContainer" CdmEntityContainer="Stroitelniu_ShopEntities">
+    <EntitySetMapping Name="avtorization">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.avtorization">
+        <MappingFragment StoreEntitySet="avtorization">
+          <ScalarProperty Name="ID_polyzovatelia" ColumnName="ID_polyzovatelia" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="paron" ColumnName="paron" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="ID_clienta" ColumnName="ID_clienta" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+          <ScalarProperty Name="nomer_phone" ColumnName="nomer_phone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dop_yslyga">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.dop_yslyga">
+        <MappingFragment StoreEntitySet="dop_yslyga">
+          <ScalarProperty Name="ID_yslygi" ColumnName="ID_yslygi" />
+          <ScalarProperty Name="yslyga" ColumnName="yslyga" />
+          <ScalarProperty Name="chena" ColumnName="chena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itap_stroitelistva">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.itap_stroitelistva">
+        <MappingFragment StoreEntitySet="itap_stroitelistva">
+          <ScalarProperty Name="ID_itap" ColumnName="ID_itap" />
+          <ScalarProperty Name="opisanie_itapa" ColumnName="opisanie_itapa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="itap_objekt">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.itap_objekt">
+        <MappingFragment StoreEntitySet="itap-objekt">
+          <ScalarProperty Name="ID_itap" ColumnName="ID_itap" />
+          <ScalarProperty Name="ID_objekta" ColumnName="ID_objekta" />
+          <ScalarProperty Name="data_nachala" ColumnName="data_nachala" />
+          <ScalarProperty Name="data_koncha" ColumnName="data_koncha" />
+          <ScalarProperty Name="itogovai_data" ColumnName="itogovai_data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="material">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.material">
+        <MappingFragment StoreEntitySet="material">
+          <ScalarProperty Name="ID_material" ColumnName="ID_material" />
+          <ScalarProperty Name="nazvanie_materiala" ColumnName="nazvanie_materiala" />
+          <ScalarProperty Name="kolichestvo_materiala" ColumnName="kolichestvo_materiala" />
+          <ScalarProperty Name="chena" ColumnName="chena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="objekt">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.objekt">
+        <MappingFragment StoreEntitySet="objekt">
+          <ScalarProperty Name="ID_objekta" ColumnName="ID_objekta" />
+          <ScalarProperty Name="address_objekta" ColumnName="address_objekta" />
+          <ScalarProperty Name="ploshad_objekta" ColumnName="ploshad_objekta" />
+          <ScalarProperty Name="dlina" ColumnName="dlina" />
+          <ScalarProperty Name="shirina" ColumnName="shirina" />
+          <ScalarProperty Name="visota" ColumnName="visota" />
+          <ScalarProperty Name="kol_itzhei" ColumnName="kol_itzhei" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="postavki_materiala">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.postavki_materiala">
+        <MappingFragment StoreEntitySet="postavki_materiala">
+          <ScalarProperty Name="ID_postavki_materiala" ColumnName="ID_postavki_materiala" />
+          <ScalarProperty Name="ID_material" ColumnName="ID_material" />
+          <ScalarProperty Name="data_dostavki" ColumnName="data_dostavki" />
+          <ScalarProperty Name="kolichestvo_materiala" ColumnName="kolichestvo_materiala" />
+          <ScalarProperty Name="ID_objekta" ColumnName="ID_objekta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sotrudniki">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.sotrudniki">
+        <MappingFragment StoreEntitySet="sotrudniki">
+          <ScalarProperty Name="ID_sotrudnika" ColumnName="ID_sotrudnika" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="imya" ColumnName="imya" />
+          <ScalarProperty Name="otchestvo" ColumnName="otchestvo" />
+          <ScalarProperty Name="doljnost" ColumnName="doljnost" />
+          <ScalarProperty Name="nomer_passporta" ColumnName="nomer_passporta" />
+          <ScalarProperty Name="seria_passporta" ColumnName="seria_passporta" />
+          <ScalarProperty Name="data_priema_na_raboty" ColumnName="data_priema_na_raboty" />
+          <ScalarProperty Name="ID_polyzovatelia" ColumnName="ID_polyzovatelia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="zakaz">
+      <EntityTypeMapping TypeName="Stroitelniu_ShopModel.zakaz">
+        <MappingFragment StoreEntitySet="zakaz">
+          <ScalarProperty Name="ID_zakaza" ColumnName="ID_zakaza" />
+          <ScalarProperty Name="data_zakaza" ColumnName="data_zakaza" />
+          <ScalarProperty Name="status_zakaza" ColumnName="status_zakaza" />
+          <ScalarProperty Name="ID_clienta" ColumnName="ID_clienta" />
+          <ScalarProperty Name="ID_objekta" ColumnName="ID_objekta" />
+          <ScalarProperty Name="ID_sotrudnika" ColumnName="ID_sotrudnika" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="zakaz_yslyga" TypeName="Stroitelniu_ShopModel.zakaz_yslyga" StoreEntitySet="zakaz-yslyga">
+      <EndProperty Name="dop_yslyga">
+        <ScalarProperty Name="ID_yslygi" ColumnName="ID_yslygi" />
+      </EndProperty>
+      <EndProperty Name="zakaz">
+        <ScalarProperty Name="ID_zakaza" ColumnName="ID_zakaza" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
