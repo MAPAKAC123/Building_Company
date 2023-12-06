@@ -15,6 +15,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Timers;
+using System.Threading;
+using System.Windows.Threading;
+using System.Windows.Media;
+
+
 
 namespace Practical_3_Kopylov_Maxim.Pages
 {
@@ -23,12 +29,19 @@ namespace Practical_3_Kopylov_Maxim.Pages
     /// </summary>
     public partial class Autho : Page
     {
+        private DispatcherTimer timer;
         public Autho()
-        {
+        {          
             InitializeComponent();
-        }
-        private int cap = 0;
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
 
+        }
+
+        private int cap = 0;
+        private int srok = 10;
+        private int attempts = 3;
 
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
@@ -48,7 +61,8 @@ namespace Practical_3_Kopylov_Maxim.Pages
                     if (user != null)
                     {
                         var id = EntityBuilding.GetContext().sotrudniki.Where(id1 => id1.ID_polyzovatelia == user.ID_polyzovatelia).FirstOrDefault();
-                        var asd = id.doljnosti;                       
+                        var asd = id.doljnosti;
+                        attempts = 3;
                         if(asd.doljnost == "Администратор")
                         {
                             NavigationService.Navigate(new Admin());
@@ -61,9 +75,28 @@ namespace Practical_3_Kopylov_Maxim.Pages
                     }
                     else
                     {
-                        MessageBox.Show("Такой пользователь не найден!");
-                        cap++;
-                        txtBlockCaptcha.Text = GenerateRandomCaptcha(4); 
+                        if(attempts > 1)
+                        {
+                            attempts--;
+                            MessageBox.Show($"Такой пользователь не найден\n Пройдите Капчу. У вас осталось {attempts} попытки для верного ввода данных!");
+                            cap++;
+                            txtBlockCaptcha.Text = GenerateRandomCaptcha(4);
+                        }
+                        else
+                        { 
+                            txtbLogin.IsEnabled = false;
+                            pswbPassword.IsEnabled = false;
+                            txtbLogin.Clear();
+                            pswbPassword.Clear();
+                            srok = 10;
+                            LbTimer.Content = srok.ToString();
+                            timer.Start();
+                            LbTimer.Foreground = Brushes.Red;
+                            LbTimer.Content = "Осталось секунд до разблокировки: 10";
+                            attempts = 3;
+                            MessageBox.Show("Вы заблокированы на 10 секунд");
+
+                        }
                     }
                 }
                 else
@@ -99,6 +132,20 @@ namespace Practical_3_Kopylov_Maxim.Pages
             else
             {
                 MessageBox.Show("Не все поля заполнены! Заполните поля логина и пароля!");
+            }
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            LbTimer.Content = "";
+            srok--;
+            LbTimer.Content = "Осталось секунд до разблокировки: " + srok.ToString();
+            if(srok == 0)
+            {
+                LbTimer.Content = "";
+                timer.Stop();
+                txtbLogin.IsEnabled = true;
+                pswbPassword.IsEnabled = true;
+                MessageBox.Show("Вы разблокированы");
             }
         }
 
